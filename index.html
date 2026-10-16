@@ -14,7 +14,7 @@
     :root{
       --bg:#f5f7fa;--bg-card:#fff;--bg-elev:#fff;--text:#0f172a;--text2:#64748b;
       --border:#e2e8f0;--accent:#0b2d1f;--accent2:#1a4a2e;--gold:#d4af37;
-      --success:#10b981;--danger:#ef4444;--warn:#f59e0b;
+      --success:#10b981;--danger:#ef4444;--warn:#f59e0b;--info:#3b82f6;
       --sh:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
       --sh2:0 4px 12px rgba(0,0,0,.08);
       --r:14px;--r2:20px;--r3:999px;
@@ -183,7 +183,7 @@
     .view{display:none;flex-direction:column;gap:14px;animation:fade .25s ease}
     .view.on{display:flex}
 
-    /* ---------- Modal ---------- */
+    /* ---------- Modal / Sheet ---------- */
     .modal{
       position:fixed;inset:0;background:rgba(0,0,0,.5);
       display:none;align-items:flex-end;justify-content:center;
@@ -195,11 +195,12 @@
       border-radius:22px 22px 0 0;padding:20px 18px calc(20px + var(--safe-b));
       box-shadow:0 -8px 30px rgba(0,0,0,.2);
       animation:up .3s cubic-bezier(.2,.9,.3,1);
-      max-height:88vh;overflow-y:auto;
+      max-height:92vh;overflow-y:auto;
     }
     @keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
     .sheet-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
     .sheet-h h3{font-size:1.1rem;font-weight:700}
+    .sheet-h .sub{font-size:.72rem;color:var(--text2);font-weight:500;margin-top:2px}
     .x{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--text2);background:var(--bg)}
     .x:active{background:var(--border)}
     .field{margin-bottom:13px}
@@ -211,6 +212,88 @@
     }
     .field input:focus,.field select:focus{border-color:var(--accent2);box-shadow:0 0 0 3px rgba(43,110,74,.15)}
     .field select option{color:#0f172a}
+
+    /* ---------- Amount Big Input ---------- */
+    .amt-hero{
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      border-radius:18px;padding:18px 16px;margin-bottom:14px;
+      text-align:center;color:#fff;
+    }
+    .amt-hero .lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.75);margin-bottom:6px}
+    .amt-hero .big{
+      display:flex;align-items:center;justify-content:center;gap:4px;
+    }
+    .amt-hero .cur{font-size:1.4rem;font-weight:700;color:var(--gold)}
+    .amt-hero input{
+      background:transparent;border:none;color:#fff;
+      font-size:2rem;font-weight:800;letter-spacing:-.03em;
+      text-align:center;width:100%;max-width:240px;padding:0;
+      border-bottom:2px solid rgba(255,255,255,.25);
+      transition:border-color .2s;
+    }
+    .amt-hero input:focus{border-bottom-color:var(--gold)}
+    .amt-hero input::placeholder{color:rgba(255,255,255,.4)}
+    .amt-hero input::-webkit-outer-spin-button,
+    .amt-hero input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+    .amt-hero input[type=number]{-moz-appearance:textfield}
+
+    /* ---------- Allocation Section ---------- */
+    .alloc-h{
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:10px;padding:0 2px;
+    }
+    .alloc-h h4{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text2)}
+    .alloc-h .hint{font-size:.7rem;color:var(--text2);font-weight:500}
+    .alloc-list{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+    .alloc{
+      display:flex;align-items:center;gap:10px;
+      background:var(--bg);border:1.5px solid var(--border);
+      border-radius:12px;padding:10px 12px;
+      transition:border-color .15s,background .15s;
+    }
+    .alloc.on{border-color:var(--accent2);background:rgba(43,110,74,.06)}
+    [data-theme="dark"] .alloc.on{background:rgba(43,110,74,.15)}
+    .alloc .chk{
+      width:22px;height:22px;border-radius:6px;
+      border:2px solid var(--border);background:var(--bg-card);
+      display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;transition:all .15s;
+    }
+    .alloc.on .chk{background:var(--accent);border-color:var(--accent)}
+    .alloc.on .chk::after{content:'✓';color:#fff;font-size:.75rem;font-weight:800}
+    .alloc .ic{font-size:1.1rem;flex-shrink:0}
+    .alloc .meta{flex:1;min-width:0}
+    .alloc .meta .t{font-weight:700;font-size:.85rem;display:flex;justify-content:space-between;gap:6px;align-items:baseline}
+    .alloc .meta .t .pct{font-size:.7rem;color:var(--gold);font-weight:800}
+    .alloc .meta .d{font-size:.66rem;color:var(--text2);margin-top:1px;line-height:1.3}
+    .alloc .amtbox{
+      display:flex;align-items:center;gap:2px;
+      background:var(--bg-card);border:1.5px solid var(--border);
+      border-radius:9px;padding:5px 8px;flex-shrink:0;
+    }
+    .alloc .amtbox .s{font-size:.7rem;font-weight:700;color:var(--text2)}
+    .alloc .amtbox input{
+      width:62px;font-size:.85rem;font-weight:800;
+      text-align:right;color:var(--text);padding:0;
+      background:transparent;
+    }
+    .alloc .amtbox input::-webkit-outer-spin-button,
+    .alloc .amtbox input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+    .alloc .amtbox input[type=number]{-moz-appearance:textfield}
+
+    /* ---------- Summary Bar ---------- */
+    .sum-bar{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:11px 14px;border-radius:12px;
+      background:var(--bg);border:1.5px dashed var(--border);
+      margin-bottom:14px;font-size:.82rem;
+    }
+    .sum-bar .l{font-weight:600;color:var(--text2)}
+    .sum-bar .r{font-weight:800;font-size:1rem}
+    .sum-bar .r.ok{color:var(--success)}
+    .sum-bar .r.bad{color:var(--danger)}
+
+    /* ---------- Actions ---------- */
     .actions{display:flex;gap:9px;margin-top:6px}
     .btn{
       flex:1;padding:14px;border-radius:var(--r3);
@@ -221,7 +304,137 @@
     .btn:active{transform:scale(.97)}
     .btn.pri{background:var(--accent);color:#fff}
     .btn.pri:active{background:var(--accent2)}
+    .btn.pri:disabled{opacity:.4;cursor:not-allowed}
     .btn.sec{background:var(--bg);border:1.5px solid var(--border);color:var(--text)}
+    .btn.ghost{background:transparent;border:1.5px solid var(--border);color:var(--text2);font-size:.8rem;padding:10px}
+
+    /* ---------- Quick Templates ---------- */
+    .tpl-row{display:flex;gap:7px;overflow-x:auto;padding:2px 0 4px;margin-bottom:12px;scrollbar-width:none}
+    .tpl-row::-webkit-scrollbar{display:none}
+    .tpl{
+      flex-shrink:0;background:var(--bg);border:1.5px solid var(--border);
+      border-radius:var(--r3);padding:7px 13px;
+      font-size:.75rem;font-weight:700;color:var(--text2);
+      white-space:nowrap;transition:all .15s;
+    }
+    .tpl:active,.tpl.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+    /* ---------- Allocation Header (split budgets) ---------- */
+    .split-note{
+      background:linear-gradient(135deg,rgba(212,175,55,.12),rgba(43,110,74,.08));
+      border:1px solid rgba(212,175,55,.3);
+      border-radius:12px;padding:10px 12px;
+      font-size:.75rem;color:var(--text2);line-height:1.4;
+      margin-bottom:12px;
+    }
+    .split-note b{color:var(--gold)}
+
+    /* ---------- Rules View ---------- */
+    .rules-tabs{
+      display:flex;gap:6px;overflow-x:auto;padding:2px 0 6px;
+      scrollbar-width:none;margin-bottom:6px;
+    }
+    .rules-tabs::-webkit-scrollbar{display:none}
+    .rtab{
+      flex-shrink:0;background:var(--bg-card);border:1.5px solid var(--border);
+      border-radius:var(--r3);padding:8px 14px;
+      font-size:.78rem;font-weight:700;color:var(--text2);
+      white-space:nowrap;transition:all .15s;
+    }
+    .rtab.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+    .rule-card{
+      background:var(--bg-card);border:1px solid var(--border);
+      border-radius:var(--r2);padding:14px;box-shadow:var(--sh);
+      margin-bottom:10px;
+    }
+    .rule-card .rh{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px}
+    .rule-card .rh h3{font-size:.98rem;font-weight:800;letter-spacing:-.02em}
+    .rule-card .rh .badge{
+      font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;
+      padding:3px 8px;border-radius:var(--r3);white-space:nowrap;
+    }
+    .badge.established{background:rgba(16,185,129,.15);color:var(--success)}
+    .badge.variation{background:rgba(245,158,11,.15);color:var(--warn)}
+    .badge.church{background:rgba(212,175,55,.2);color:#a07d1a}
+    [data-theme="dark"] .badge.church{color:var(--gold)}
+    .rule-card .desc{font-size:.78rem;color:var(--text2);line-height:1.5;margin-bottom:10px}
+    .rule-card .pct-grid{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+    .pct-chip{
+      background:var(--bg);border:1px solid var(--border);
+      border-radius:8px;padding:5px 9px;
+      font-size:.72rem;font-weight:700;
+      display:flex;align-items:center;gap:5px;
+    }
+    .pct-chip .p{color:var(--gold);font-weight:800}
+    .rule-card .pros{font-size:.72rem;color:var(--text2);line-height:1.5}
+    .rule-card .pros b{color:var(--text);font-weight:700}
+    .rule-card .calc-row{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:8px 10px;background:var(--bg);border-radius:8px;
+      font-size:.75rem;margin-top:8px;
+    }
+    .rule-card .calc-row .lbl{color:var(--text2);font-weight:600}
+    .rule-card .calc-row .val{font-weight:800;color:var(--gold)}
+
+    /* Income input for rules */
+    .rule-income{
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      border-radius:16px;padding:14px 16px;margin-bottom:12px;
+      color:#fff;
+    }
+    .rule-income .lbl{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.75);margin-bottom:6px}
+    .rule-income .big{display:flex;align-items:center;gap:6px}
+    .rule-income .cur{font-size:1.2rem;font-weight:700;color:var(--gold)}
+    .rule-income input{
+      background:transparent;border:none;color:#fff;
+      font-size:1.5rem;font-weight:800;letter-spacing:-.02em;
+      width:100%;padding:0;
+      border-bottom:2px solid rgba(255,255,255,.25);
+    }
+    .rule-income input:focus{border-bottom-color:var(--gold)}
+    .rule-income input::placeholder{color:rgba(255,255,255,.4)}
+    .rule-income input::-webkit-outer-spin-button,
+    .rule-income input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+    /* Compare table */
+    .compare-wrap{overflow-x:auto;margin-top:4px}
+    .compare-table{
+      width:100%;border-collapse:collapse;font-size:.72rem;
+      min-width:420px;
+    }
+    .compare-table th,.compare-table td{
+      padding:7px 8px;text-align:left;
+      border-bottom:1px solid var(--border);
+      white-space:nowrap;
+    }
+    .compare-table th{
+      font-weight:800;color:var(--text2);
+      text-transform:uppercase;font-size:.62rem;letter-spacing:.04em;
+      background:var(--bg);
+    }
+    .compare-table td.num{text-align:right;font-weight:700}
+    .compare-table tr:last-child td{border-bottom:none}
+    .compare-table .hl{color:var(--gold);font-weight:800}
+
+    /* Category editor */
+    .cat-edit-row{
+      display:flex;gap:6px;align-items:center;margin-bottom:7px;
+    }
+    .cat-edit-row input{
+      flex:1;padding:10px 12px;border-radius:10px;
+      border:1.5px solid var(--border);background:var(--bg);
+      font-size:.85rem;font-weight:600;
+    }
+    .cat-edit-row input.pct-in{
+      flex:0 0 70px;text-align:center;
+    }
+    .cat-edit-row .rm{
+      width:34px;height:34px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      color:var(--danger);font-size:1rem;background:var(--bg);
+      flex-shrink:0;
+    }
 
     /* ---------- Footer ---------- */
     .ftr{
@@ -235,19 +448,27 @@
       .stat .val{font-size:1.1rem}
       .stat.hero .val{font-size:1.45rem}
       .brand h1{font-size:1.15rem}
+      .amt-hero input{font-size:1.7rem}
+      .alloc .amtbox input{width:54px}
     }
     @media (min-width:560px){
       .stats{grid-template-columns:repeat(4,1fr)}
       .stat.hero{grid-column:span 2}
     }
 
-    /* ---------- Reduced Motion ---------- */
     @media (prefers-reduced-motion:reduce){
       *{animation:none!important;transition:none!important}
     }
 
-    /* ---------- SVG Icon Helper ---------- */
     .ico{display:inline-block;vertical-align:middle}
+
+    /* ---------- Section divider ---------- */
+    .sec-divider{
+      display:flex;align-items:center;gap:10px;
+      margin:6px 0 2px;
+    }
+    .sec-divider .line{flex:1;height:1px;background:var(--border)}
+    .sec-divider .txt{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--text2)}
   </style>
 </head>
 <body>
@@ -324,7 +545,7 @@
       <h2>👤 Personal Budget</h2>
       <button class="add-btn" data-add="personal">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        Add
+        Allocate
       </button>
     </div>
     <div class="list" id="perList"></div>
@@ -336,10 +557,51 @@
       <h2>⛪ Church Budget</h2>
       <button class="add-btn" data-add="church">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        Add
+        Allocate
       </button>
     </div>
     <div class="list" id="chuList"></div>
+  </section>
+
+  <!-- ===== RULES & METHODS ===== -->
+  <section class="view" id="v-rules">
+    <div class="lh">
+      <h2>📚 Budgeting Rules</h2>
+      <span style="font-size:.7rem;color:var(--text2);font-weight:600" id="ruleScope">Personal</span>
+    </div>
+
+    <!-- Scope toggle -->
+    <div class="rules-tabs" id="scopeTabs">
+      <button class="rtab on" data-scope="personal">👤 Personal</button>
+      <button class="rtab" data-scope="church">⛪ Church</button>
+    </div>
+
+    <!-- Income input -->
+    <div class="rule-income">
+      <div class="lbl" id="ruleIncLbl">Your monthly income</div>
+      <div class="big">
+        <span class="cur" id="ruleCur">R</span>
+        <input id="ruleIncome" type="number" inputmode="decimal" placeholder="0.00" step="0.01" min="0" aria-label="Income for rules">
+      </div>
+    </div>
+
+    <!-- Compare toggle -->
+    <div style="display:flex;gap:7px;margin-bottom:10px">
+      <button class="btn ghost" id="cmpToggle" style="flex:1">⚖️ Compare Methods</button>
+      <button class="btn ghost" id="editCatsBtn" style="flex:1">✏️ Edit Categories</button>
+    </div>
+
+    <!-- Compare panel (hidden by default) -->
+    <div class="card" id="cmpPanel" style="display:none">
+      <div class="card-h">
+        <h3>Side-by-side Comparison</h3>
+        <span>same income</span>
+      </div>
+      <div class="compare-wrap" id="cmpWrap"></div>
+    </div>
+
+    <!-- Rules list -->
+    <div id="rulesList"></div>
   </section>
 
   <div class="ftr">SmartBudget Pro · <b>© Mawethu Mpande @SISONKE HUB</b></div>
@@ -359,46 +621,61 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 9v11h6v-6h6v6h6V9z"/><path d="M12 2v6"/></svg>
     <span>Church</span>
   </button>
+  <button data-v="rules" role="tab">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    <span>Rules</span>
+  </button>
 </nav>
 
-<!-- Modal -->
+<!-- Allocation Modal -->
 <div class="modal" id="modal">
   <div class="sheet">
     <div class="sheet-h">
-      <h3 id="mTitle">Add Item</h3>
-      <button class="x" id="mClose">✕</button>
+      <div>
+        <h3 id="mTitle">Allocate Budget</h3>
+        <div class="sub" id="mSub">Enter amount &amp; pick allocations</div>
+      </div>
+      <button class="x" id="mClose" aria-label="Close">✕</button>
     </div>
-    <form id="form" autocomplete="off">
-      <input type="hidden" id="fType" value="personal">
-      <input type="hidden" id="fId" value="">
-      <div class="field">
-        <label for="fName">Description</label>
-        <input id="fName" type="text" placeholder="e.g. Salary, Groceries, Tithe" required maxlength="60">
+
+    <!-- Big Amount Input -->
+    <div class="amt-hero">
+      <div class="lbl" id="amtLbl">Amount to allocate</div>
+      <div class="big">
+        <span class="cur" id="amtCur">R</span>
+        <input id="fAmt" type="number" inputmode="decimal" placeholder="0.00" step="0.01" min="0.01" aria-label="Amount">
       </div>
-      <div class="field">
-        <label for="fCat">Category</label>
-        <select id="fCat">
-          <option value="Income">💰 Income</option>
-          <option value="Housing">🏠 Housing</option>
-          <option value="Food">🍽️ Food</option>
-          <option value="Transport">🚗 Transport</option>
-          <option value="Utilities">💡 Utilities</option>
-          <option value="Tithe">🙏 Tithe / Offering</option>
-          <option value="Missions">🌍 Missions</option>
-          <option value="Church Ops">⛪ Church Operations</option>
-          <option value="Savings">🏦 Savings</option>
-          <option value="Other">📦 Other</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="fAmt">Amount</label>
-        <input id="fAmt" type="number" inputmode="decimal" placeholder="0.00" step="0.01" min="0.01" required>
-      </div>
-      <div class="actions">
-        <button type="button" class="btn sec" id="mCancel">Cancel</button>
-        <button type="submit" class="btn pri">Save</button>
-      </div>
-    </form>
+    </div>
+
+    <!-- Quick Templates -->
+    <div class="tpl-row" id="tplRow"></div>
+
+    <!-- Hint -->
+    <div class="split-note" id="splitNote">
+      <b>Tip:</b> Tap a template above to auto-fill allocations, or tap categories below to select them.
+    </div>
+
+    <!-- Allocation list -->
+    <div class="alloc-h">
+      <h4>Suggested Allocations</h4>
+      <span class="hint" id="allocHint">tap to select</span>
+    </div>
+    <div class="alloc-list" id="allocList"></div>
+
+    <!-- Summary -->
+    <div class="sum-bar">
+      <span class="l">Total allocated</span>
+      <span class="r" id="sumAlloc">R 0.00</span>
+    </div>
+    <div class="sum-bar" style="margin-top:-10px">
+      <span class="l">Remaining</span>
+      <span class="r" id="sumRemain">R 0.00</span>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn sec" id="mCancel">Cancel</button>
+      <button type="button" class="btn pri" id="mSave">Save Allocations</button>
+    </div>
   </div>
 </div>
 
@@ -406,12 +683,189 @@
 (function(){
   'use strict';
 
-  // ===== State =====
-  const KEY='sbp_v2';
+  // ===== Config =====
+  const KEY='sbp_v4';
   const SYM={ZAR:'R',USD:'$',EUR:'€',GBP:'£'};
   const RATE={ZAR:1,USD:0.053,EUR:0.049,GBP:0.042};
-  let S={items:[],cur:'ZAR',theme:'light'};
+
+  // ===== BUDGETING RULES LIBRARY =====
+  // type: 'established' = widely recognised financial guideline
+  //       'variation'   = informal / community variation
+  //       'church'      = church-specific guideline
+  const RULES = {
+    personal: [
+      {
+        id:'r503020', name:'50/30/20 Rule', icon:'⚖️', type:'established',
+        desc:'Coined by Senator Elizabeth Warren. Split after-tax income into Needs (50%), Wants (30%), and Savings/Debt (20%).',
+        alloc:{ Needs:50, Wants:30, 'Savings & Debt':20 },
+        pros:'Simple, flexible, works on any income level.',
+        use:'Best for beginners or anyone wanting a balanced default.'
+      },
+      {
+        id:'r8020', name:'80/20 Rule', icon:'💪', type:'established',
+        desc:'Commit 20% of income to savings and investments first, then live on the remaining 80%. A simplified pay-yourself-first approach.',
+        alloc:{ 'Savings & Investments':20, 'Living Expenses':80 },
+        pros:'Aggressive savings without complex tracking.',
+        use:'Great for disciplined savers building wealth quickly.'
+      },
+      {
+        id:'r603010', name:'60/30/10 Rule', icon:'🏙️', type:'variation',
+        desc:'A variation popular in high-cost cities. 60% to living expenses, 30% to discretionary spending, 10% to savings.',
+        alloc:{ 'Living Expenses':60, 'Discretionary':30, Savings:10 },
+        pros:'Realistic for high rent or high cost-of-living areas.',
+        use:'Best for city dwellers where housing eats more income.'
+      },
+      {
+        id:'r702010', name:'70/20/10 Rule', icon:'📊', type:'variation',
+        desc:'70% to living expenses and bills, 20% to savings, 10% to debt repayment or investments.',
+        alloc:{ 'Living Expenses':70, Savings:20, 'Debt / Investments':10 },
+        pros:'Leaves generous room for essentials.',
+        use:'Suits moderate incomes with some debt to manage.'
+      },
+      {
+        id:'rzero', name:'Zero-Based Budgeting', icon:'0️⃣', type:'established',
+        desc:'Every rand is assigned a job. Income minus all allocations equals exactly zero. You decide where every cent goes.',
+        alloc:{ Housing:25, Food:15, Transport:10, Utilities:10, Savings:20, Debt:10, Personal:10 },
+        pros:'Maximum control, eliminates leaks, very intentional.',
+        use:'Best for detail-oriented people who want total control.'
+      },
+      {
+        id:'renvelope', name:'Envelope Budgeting', icon:'✉️', type:'established',
+        desc:'Cash is divided into envelopes by category. Once an envelope is empty, spending in that category stops.',
+        alloc:{ Groceries:20, Transport:10, Entertainment:10, Clothing:5, 'Personal Care':5, Savings:20, Bills:30 },
+        pros:'Physically limits overspending, great for cash users.',
+        use:'Ideal for people who overspend with cards.'
+      },
+      {
+        id:'rpyf', name:'Pay Yourself First', icon:'🥇', type:'established',
+        desc:'Automatically move savings and investments out on payday, before any spending. What remains is what you budget with.',
+        alloc:{ 'Savings & Investments':20, 'Retirement':10, 'Emergency Fund':10, 'Living Expenses':60 },
+        pros:'Builds wealth automatically, removes willpower from the equation.',
+        use:'Best for anyone who struggles to save consistently.'
+      },
+      {
+        id:'rreverse', name:'Reverse Budgeting', icon:'🔄', type:'variation',
+        desc:'Start with your savings goal, then work backwards to figure out how much you can spend on everything else.',
+        alloc:{ 'Savings Goal':25, 'Fixed Expenses':45, 'Variable Expenses':30 },
+        pros:'Goal-driven, motivating, flexible on spending.',
+        use:'Great for goal-oriented savers (holiday, house, car).'
+      },
+      {
+        id:'r6jar', name:'6-Jar System', icon:'🫙', type:'variation',
+        desc:'Popularised by T. Harv Eker. Income is split into 6 jars: Necessities, Financial Freedom, Long-Term Savings, Education, Play, and Give.',
+        alloc:{ 'Necessities':55, 'Financial Freedom':10, 'Long-Term Savings':10, 'Education':10, 'Play':10, 'Give':5 },
+        pros:'Holistic, balances enjoyment with giving and growth.',
+        use:'Best for those who want life balance, not just numbers.'
+      },
+      {
+        id:'rsinking', name:'Sinking Funds', icon:'🏺', type:'established',
+        desc:'Set aside small amounts monthly for known future expenses (car service, holidays, school fees) so they never surprise you.',
+        alloc:{ 'Sinking Funds':15, 'Living Expenses':65, Savings:20 },
+        pros:'Prevents debt from predictable future costs.',
+        use:'Ideal for irregular but expected expenses.'
+      },
+      {
+        id:'rsnowball', name:'Debt Snowball', icon:'⛄', type:'established',
+        desc:'Pay minimums on all debts, then throw every extra rand at the smallest debt first. Roll payments forward as each is cleared.',
+        alloc:{ 'Debt Minimums':20, 'Debt Snowball':15, 'Living Expenses':55, Savings:10 },
+        pros:'Psychologically powerful, quick wins build momentum.',
+        use:'Best for people motivated by progress and wins.'
+      },
+      {
+        id:'rav avalanche', name:'Debt Avalanche', icon:'🏔️', type:'established',
+        desc:'Pay minimums on all debts, then attack the highest-interest debt first. Mathematically the fastest way to clear debt.',
+        alloc:{ 'Debt Minimums':20, 'Debt Avalanche':15, 'Living Expenses':55, Savings:10 },
+        pros:'Saves the most interest, fastest net worth growth.',
+        use:'Best for analytical people with high-interest debt.'
+      },
+      {
+        id:'remergency', name:'Emergency Fund Planning', icon:'🚨', type:'established',
+        desc:'Build 3–6 months of essential expenses in a liquid account before aggressive investing. Foundation of financial security.',
+        alloc:{ 'Emergency Fund':20, 'Living Expenses':60, 'Retirement':10, 'Other Savings':10 },
+        pros:'Protects against job loss, medical, and life shocks.',
+        use:'Essential starting point for everyone, especially freelancers.'
+      },
+      {
+        id:'rcustom', name:'Custom Allocation', icon:'🎨', type:'variation',
+        desc:'Build your own split. Add any categories and percentages you want. Perfect if none of the standard methods fit your life.',
+        alloc:{ Housing:25, Food:15, Transport:10, Savings:20, Debt:10, Personal:10, Giving:10 },
+        pros:'Fully flexible, adapts to your unique situation.',
+        use:'Best when you know your priorities and want full control.'
+      }
+    ],
+    church: [
+      {
+        id:'rc1', name:'Classic Tithe & Offering', icon:'🙏', type:'church',
+        desc:'A foundational church budget: 10% tithe, offerings, and balanced ministry spending. Common in many congregations.',
+        alloc:{ Tithe:10, Offerings:10, 'Church Operations':30, Missions:15, Outreach:20, Welfare:15 },
+        pros:'Balanced, honours giving while funding ministry.',
+        use:'Most common framework for established churches.'
+      },
+      {
+        id:'rc2', name:'Missions Heavy', icon:'🌍', type:'church',
+        desc:'Prioritises global and local missions. A large portion goes to spreading the gospel and supporting missionaries.',
+        alloc:{ Missions:35, Outreach:20, 'Church Operations':25, Welfare:10, Savings:10 },
+        pros:'Advances the Great Commission; strong outward focus.',
+        use:'Best for mission-focused churches or mission committees.'
+      },
+      {
+        id:'rc3', name:'Building Fund', icon:'🏗️', type:'church',
+        desc:'A budget focused on acquiring, building, or renovating church facilities. Heavy allocation to building and infrastructure.',
+        alloc:{ 'Building Fund':40, 'Church Operations':25, Missions:15, Outreach:10, Welfare:10 },
+        pros:'Funds long-term infrastructure, grows church capacity.',
+        use:'Best during building projects or expansion seasons.'
+      },
+      {
+        id:'rc4', name:'Outreach Focus', icon:'📢', type:'church',
+        desc:'Prioritises community outreach, evangelism, and social impact over internal operations.',
+        alloc:{ Outreach:35, Missions:20, 'Church Operations':20, Welfare:15, Savings:10 },
+        pros:'Strong community impact, grows church visibility.',
+        use:'Best for churches focused on community transformation.'
+      },
+      {
+        id:'rc5', name:'Balanced Ministry', icon:'⛪', type:'church',
+        desc:'Even distribution across operations, missions, outreach, welfare, and savings. Safe, sustainable, and stable.',
+        alloc:{ 'Church Operations':30, Missions:20, Outreach:20, Welfare:15, Tithe:5, Savings:10 },
+        pros:'Stable and sustainable; no area is starved.',
+        use:'Best for steady-state churches with predictable income.'
+      },
+      {
+        id:'rc6', name:'Departmental Budget', icon:'🗂️', type:'church',
+        desc:'Allocate by department: worship, youth, children, admin, facilities, and benevolence.',
+        alloc:{ Worship:15, Youth:15, Children:10, Administration:20, Facilities:20, Benevolence:20 },
+        pros:'Clear accountability per ministry area.',
+        use:'Best for larger churches with multiple departments.'
+      },
+      {
+        id:'rc7', name:'Church Plant / Startup', icon:'🌱', type:'church',
+        desc:'Lean budget for a new church. Focus on essentials: operations, outreach, and a small building fund.',
+        alloc:{ 'Church Operations':45, Outreach:25, Missions:10, 'Building Fund':10, Welfare:10 },
+        pros:'Minimises overhead, maximises growth capacity.',
+        use:'Best for church plants and first 1–3 years.'
+      },
+      {
+        id:'rc8', name:'Tithe-First Church', icon:'💯', type:'church',
+        desc:'Church commits to giving 10% of all income onward to missions or a mother church, then budgets the rest.',
+        alloc:{ 'Onward Giving':10, 'Church Operations':35, Outreach:20, Missions:15, Welfare:10, Savings:10 },
+        pros:'Demonstrates generosity and kingdom partnership.',
+        use:'Best for churches with a strong giving culture.'
+      },
+      {
+        id:'rcustomc', name:'Custom Church Allocation', icon:'🎨', type:'church',
+        desc:'Build your own church budget split. Add departments, missions, outreach, or any category you need.',
+        alloc:{ 'Church Operations':30, Missions:20, Outreach:20, Welfare:15, Savings:15 },
+        pros:'Fully flexible for unique church structures.',
+        use:'Best when your church has a unique ministry mix.'
+      }
+    ]
+  };
+
+  // ===== State =====
+  let S={items:[],cur:'ZAR',theme:'light',ruleIncome:0,scope:'personal',allocations:{},activeRule:null};
   let chart=null;
+  let currentType='personal';
+  let modalAllocations={};
+  let activeTemplate=null;
 
   // ===== Helpers =====
   const $=id=>document.getElementById(id);
@@ -420,16 +874,26 @@
   const zar2disp=z=>z*(RATE[S.cur]||1);
   const disp2zar=a=>a/(RATE[S.cur]||1);
   const fmt=z=>`${SYM[S.cur]||'R'} ${zar2disp(z).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}`;
+  const fmtDisp=a=>`${SYM[S.cur]||'R'} ${a.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}`;
 
   // ===== Storage =====
   function load(){
     try{
       const raw=localStorage.getItem(KEY);
-      if(raw){const p=JSON.parse(raw);S.items=p.items||[];S.cur=p.cur||'ZAR';S.theme=p.theme||'light'}
+      if(raw){
+        const p=JSON.parse(raw);
+        S.items=p.items||[];
+        S.cur=p.cur||'ZAR';
+        S.theme=p.theme||'light';
+        S.ruleIncome=p.ruleIncome||0;
+        S.scope=p.scope||'personal';
+      }
     }catch(e){}
   }
   function save(){
-    try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}
+    try{localStorage.setItem(KEY,JSON.stringify({
+      items:S.items,cur:S.cur,theme:S.theme,ruleIncome:S.ruleIncome,scope:S.scope
+    }))}catch(e){}
   }
 
   // ===== Theme =====
@@ -466,7 +930,7 @@
     return m;
   }
 
-  // ===== Render =====
+  // ===== Render Dashboard =====
   function renderDash(){
     const t=totals();
     $('sBal').textContent=fmt(t.bal);
@@ -475,7 +939,6 @@
     $('sTit').textContent=fmt(t.tit);
     $('sBalSub').textContent=t.bal>=0?'Income − Expenses':'Deficit';
 
-    // Recent 5
     const rec=[...S.items].sort((a,b)=>b.ts-a.ts).slice(0,5);
     $('recCount').textContent=rec.length+(rec.length===1?' item':' items');
     $('recList').innerHTML=rec.length?rec.map(rowHTML).join('')
@@ -503,7 +966,7 @@
     const items=S.items.filter(i=>i.type===type);
     if(!items.length){
       const ico=type==='personal'?'👤':'⛪';
-      el.innerHTML=`<div class="empty"><span class="em">${ico}</span>No ${type} items yet.<br>Tap <b>+ Add</b> to create one.</div>`;
+      el.innerHTML=`<div class="empty"><span class="em">${ico}</span>No ${type} items yet.<br>Tap <b>+ Allocate</b> to create one.</div>`;
       return;
     }
     el.innerHTML=items.map(rowHTML).join('');
@@ -575,54 +1038,255 @@
     if(v==='dash'){$('v-dash').classList.add('on');document.querySelector('[data-v="dash"]').classList.add('on')}
     if(v==='per'){$('v-per').classList.add('on');document.querySelector('[data-v="per"]').classList.add('on')}
     if(v==='chu'){$('v-chu').classList.add('on');document.querySelector('[data-v="chu"]').classList.add('on')}
+    if(v==='rules'){$('v-rules').classList.add('on');document.querySelector('[data-v="rules"]').classList.add('on');renderRules()}
   }
 
   // ===== Modal =====
   let lastFocus=null;
   function openModal(type,edit){
     lastFocus=document.activeElement;
-    $('fType').value=type;
-    $('fId').value=edit?edit.id:'';
-    $('mTitle').textContent=edit?'Edit Item':(type==='personal'?'Add Personal Item':'Add Church Item');
-    if(edit){
-      $('fName').value=edit.name;
-      $('fCat').value=edit.cat;
-      $('fAmt').value=zar2disp(edit.amt).toFixed(2);
-    }else{
-      $('form').reset();
-      $('fType').value=type;
-      $('fId').value='';
-    }
+    currentType=type;
+    $('mTitle').textContent=edit?'Edit Item':(type==='personal'?'Allocate Personal Budget':'Allocate Church Budget');
+    $('mSub').textContent=type==='personal'
+      ?'Enter amount, pick allocations'
+      :'Enter amount, pick church allocations';
+    $('amtLbl').textContent=type==='personal'?'Amount to allocate':'Church amount to allocate';
+
+    // Build templates for this type
+    renderModalTemplates(type);
+
+    // Set currency symbol
+    $('amtCur').textContent=SYM[S.cur]||'R';
+
+    // Reset
+    $('fAmt').value='';
+    modalAllocations={};
+    activeTemplate=null;
+
+    renderModalAllocations(type);
+
     $('modal').classList.add('on');
-    setTimeout(()=>$('fName').focus(),120);
+    setTimeout(()=>$('fAmt').focus(),120);
   }
   function closeModal(){
     $('modal').classList.remove('on');
-    $('form').reset();
-    $('fId').value='';
+    $('fAmt').value='';
+    modalAllocations={};
+    activeTemplate=null;
     if(lastFocus&&lastFocus.focus)lastFocus.focus();
   }
 
-  // ===== Save Item =====
-  function submitForm(e){
-    e.preventDefault();
-    const name=$('fName').value.trim();
-    const cat=$('fCat').value;
-    const amtRaw=parseFloat($('fAmt').value);
-    if(!name||isNaN(amtRaw)||amtRaw<=0){
-      alert('Please enter a valid description and amount.');
+  // ===== Modal Templates =====
+  function renderModalTemplates(type){
+    const tplRow=$('tplRow');
+    const templates = type==='personal' ? [
+      {id:'t1', name:'50/30/20', alloc:{Needs:50,Wants:30,'Savings & Debt':20}},
+      {id:'t2', name:'80/20', alloc:{'Savings & Investments':20,'Living Expenses':80}},
+      {id:'t3', name:'Zero-Based', alloc:{Housing:25,Food:15,Transport:10,Utilities:10,Savings:20,Debt:10,Personal:10}},
+      {id:'t4', name:'Pay Yourself First', alloc:{'Savings & Investments':20,Retirement:10,'Emergency Fund':10,'Living Expenses':60}},
+      {id:'t5', name:'6-Jar', alloc:{Necessities:55,'Financial Freedom':10,'Long-Term Savings':10,Education:10,Play:10,Give:5}}
+    ] : [
+      {id:'c1', name:'Classic Tithe', alloc:{Tithe:10,Offerings:10,'Church Operations':30,Missions:15,Outreach:20,Welfare:15}},
+      {id:'c2', name:'Missions Heavy', alloc:{Missions:35,Outreach:20,'Church Operations':25,Welfare:10,Savings:10}},
+      {id:'c3', name:'Building Fund', alloc:{'Building Fund':40,'Church Operations':25,Missions:15,Outreach:10,Welfare:10}},
+      {id:'c4', name:'Outreach Focus', alloc:{Outreach:35,Missions:20,'Church Operations':20,Welfare:15,Savings:10}},
+      {id:'c5', name:'Balanced Ministry', alloc:{'Church Operations':30,Missions:20,Outreach:20,Welfare:15,Tithe:5,Savings:10}}
+    ];
+    tplRow.innerHTML=templates.map(t=>
+      `<button type="button" class="tpl" data-tpl='${JSON.stringify(t.alloc)}' data-tplid="${t.id}">${t.name}</button>`
+    ).join('');
+
+    tplRow.querySelectorAll('.tpl').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        tplRow.querySelectorAll('.tpl').forEach(b=>b.classList.remove('on'));
+        btn.classList.add('on');
+        activeTemplate=JSON.parse(btn.dataset.tpl);
+        // Apply template: set modalAllocations to full amounts from current fAmt
+        const amt=parseFloat($('fAmt').value)||0;
+        modalAllocations={};
+        if(amt>0){
+          for(const [k,v] of Object.entries(activeTemplate)){
+            modalAllocations[k]=disp2zar(amt*(v/100));
+          }
+        }
+        // Mark all categories as selected
+        renderModalAllocations(type,activeTemplate);
+      });
+    });
+  }
+
+  // ===== Modal Allocations =====
+  function renderModalAllocations(type,forceTemplate){
+    const list=$('allocList');
+    const cats = type==='personal' ? [
+      {k:'Needs',ic:'🏠',d:'Rent, food, utilities, transport'},
+      {k:'Wants',ic:'🎉',d:'Dining, entertainment, hobbies'},
+      {k:'Savings & Debt',ic:'💰',d:'Emergency fund, debt repayment'},
+      {k:'Housing',ic:'🏠',d:'Rent or bond'},
+      {k:'Food',ic:'🍽️',d:'Groceries & meals'},
+      {k:'Transport',ic:'🚗',d:'Fuel, taxi, car payment'},
+      {k:'Utilities',ic:'💡',d:'Electricity, water, internet'},
+      {k:'Tithe',ic:'🙏',d:'Church giving'},
+      {k:'Savings',ic:'🏦',d:'General savings'},
+      {k:'Debt',ic:'💳',d:'Loan repayments'},
+      {k:'Personal',ic:'👤',d:'Personal spending'},
+      {k:'Giving',ic:'🎁',d:'Charity & giving'},
+      {k:'Emergency Fund',ic:'🚨',d:'3–6 months expenses'},
+      {k:'Retirement',ic:'🌴',d:'Pension / RA'},
+      {k:'Living Expenses',ic:'🏡',d:'General living costs'},
+      {k:'Discretionary',ic:'🎯',d:'Non-essential spending'},
+      {k:'Savings & Investments',ic:'📈',d:'Long-term wealth'},
+      {k:'Debt / Investments',ic:'⚖️',d:'Debt or investment split'},
+      {k:'Financial Freedom',ic:'🕊️',d:'Passive income fund'},
+      {k:'Long-Term Savings',ic:'🏦',d:'Future big goals'},
+      {k:'Education',ic:'🎓',d:'Courses & books'},
+      {k:'Play',ic:'🎮',d:'Fun & leisure'},
+      {k:'Give',ic:'❤️',d:'Generosity'},
+      {k:'Sinking Funds',ic:'🏺',d:'Planned future expenses'},
+      {k:'Debt Minimums',ic:'📉',d:'Minimum payments'},
+      {k:'Debt Snowball',ic:'⛄',d:'Smallest debt attack'},
+      {k:'Debt Avalanche',ic:'🏔️',d:'Highest interest attack'},
+      {k:'Other Savings',ic:'💎',d:'Other savings goals'}
+    ] : [
+      {k:'Tithe',ic:'🙏',d:'10% of income'},
+      {k:'Offerings',ic:'🎁',d:'Freewill offerings'},
+      {k:'Church Operations',ic:'⛪',d:'Salaries, admin, utilities'},
+      {k:'Missions',ic:'🌍',d:'Global & local missions'},
+      {k:'Outreach',ic:'📢',d:'Community outreach'},
+      {k:'Welfare',ic:'🤝',d:'Benevolence & care'},
+      {k:'Building Fund',ic:'🏗️',d:'Building & renovations'},
+      {k:'Savings',ic:'🏦',d:'Church savings'},
+      {k:'Onward Giving',ic:'💯',d:'Giving to mother church'},
+      {k:'Worship',ic:'🎵',d:'Worship ministry'},
+      {k:'Youth',ic:'🧑',d:'Youth ministry'},
+      {k:'Children',ic:'🧒',d:'Children ministry'},
+      {k:'Administration',ic:'📋',d:'Admin & office'},
+      {k:'Facilities',ic:'🏛️',d:'Facilities & maintenance'},
+      {k:'Benevolence',ic:'💝',d:'Benevolence fund'},
+      {k:'Fundraising',ic:'🎪',d:'Fundraising events'}
+    ];
+
+    const curAmt=parseFloat($('fAmt').value)||0;
+
+    list.innerHTML=cats.map(c=>{
+      const hasAlloc=modalAllocations[c.k]!==undefined;
+      const allocAmt=hasAlloc?zar2disp(modalAllocations[c.k]):0;
+      const pct=curAmt>0&&hasAlloc?(allocAmt/curAmt*100).toFixed(0):'';
+      return `<div class="alloc ${hasAlloc?'on':''}" data-cat="${esc(c.k)}">
+        <div class="chk"></div>
+        <span class="ic">${c.ic}</span>
+        <div class="meta">
+          <div class="t"><span>${esc(c.k)}</span>${hasAlloc?`<span class="pct">${pct}%</span>`:''}</div>
+          <div class="d">${c.d}</div>
+        </div>
+        <div class="amtbox">
+          <span class="s">${SYM[S.cur]||'R'}</span>
+          <input type="number" inputmode="decimal" placeholder="0" step="0.01" min="0" value="${hasAlloc?allocAmt.toFixed(2):''}" data-catinput="${esc(c.k)}">
+        </div>
+      </div>`;
+    }).join('');
+
+    // Bind category tap to toggle
+    list.querySelectorAll('.alloc').forEach(el=>{
+      const cat=el.dataset.cat;
+      el.addEventListener('click',e=>{
+        if(e.target.tagName==='INPUT')return;
+        const inp=el.querySelector('input');
+        if(modalAllocations[cat]!==undefined){
+          delete modalAllocations[cat];
+          el.classList.remove('on');
+          inp.value='';
+        }else{
+          modalAllocations[cat]=0;
+          el.classList.add('on');
+        }
+        updateModalSummary(type);
+        // Re-render to update percentages
+        renderModalAllocations(type);
+      });
+    });
+
+    // Bind amount inputs
+    list.querySelectorAll('input[data-catinput]').forEach(inp=>{
+      inp.addEventListener('input',e=>{
+        const cat=e.target.dataset.catinput;
+        const val=parseFloat(e.target.value)||0;
+        modalAllocations[cat]=disp2zar(val);
+        // Update the .on state
+        const row=e.target.closest('.alloc');
+        if(val>0){row.classList.add('on')}
+        updateModalSummary(type);
+        // Update percentage display
+        const pctEl=row.querySelector('.pct');
+        const curAmt=parseFloat($('fAmt').value)||0;
+        if(pctEl&&curAmt>0){
+          pctEl.textContent=((val/curAmt)*100).toFixed(0)+'%';
+        }
+      });
+    });
+
+    updateModalSummary(type);
+  }
+
+  function updateModalSummary(type){
+    const curAmt=parseFloat($('fAmt').value)||0; // in display currency
+    let totalAllocZAR=0;
+    for(const v of Object.values(modalAllocations)){totalAllocZAR+=v}
+    const totalAllocDisp=zar2disp(totalAllocZAR);
+    const remainDisp=curAmt-totalAllocDisp;
+
+    $('sumAlloc').textContent=fmtDisp(totalAllocDisp);
+    $('sumRemain').textContent=fmtDisp(remainDisp);
+    $('sumRemain').className='r '+(Math.abs(remainDisp)<0.01?'ok':(remainDisp<0?'bad':''));
+  }
+
+  // ===== Save Allocations =====
+  function saveAllocations(){
+    const curAmt=parseFloat($('fAmt').value)||0;
+    if(curAmt<=0){
+      alert('Please enter an amount.');
       return;
     }
-    const amt=disp2zar(amtRaw);
-    const type=$('fType').value;
-    const eid=$('fId').value;
+    let totalAllocZAR=0;
+    for(const v of Object.values(modalAllocations)){totalAllocZAR+=v}
+    const totalAllocDisp=zar2disp(totalAllocZAR);
+    const remainDisp=curAmt-totalAllocDisp;
 
-    if(eid){
-      const i=S.items.findIndex(x=>x.id===eid);
-      if(i>-1)S.items[i]={...S.items[i],name,cat,amt,type};
-    }else{
-      S.items.push({id:id(),name,cat,amt,type,ts:Date.now()});
+    if(Object.keys(modalAllocations).length===0){
+      alert('Please select at least one category.');
+      return;
     }
+
+    if(Math.abs(remainDisp)>0.01){
+      if(!confirm(`Remaining: ${fmtDisp(remainDisp)}. Save anyway?`))return;
+    }
+
+    // Create items for each allocation
+    const ts=Date.now();
+    for(const [cat,amtZAR] of Object.entries(modalAllocations)){
+      if(amtZAR<=0)continue;
+      S.items.push({
+        id:id(),
+        name:`${cat} allocation`,
+        cat:cat,
+        amt:amtZAR,
+        type:currentType,
+        ts:ts
+      });
+    }
+
+    // If there's remaining, add as "Unallocated"
+    if(remainDisp>0.01){
+      S.items.push({
+        id:id(),
+        name:'Unallocated',
+        cat:'Other',
+        amt:disp2zar(remainDisp),
+        type:currentType,
+        ts:ts+1
+      });
+    }
+
     save();
     closeModal();
     renderAll();
@@ -634,6 +1298,98 @@
     S.items=S.items.filter(i=>i.id!==id);
     save();
     renderAll();
+  }
+
+  // ===== Rules View =====
+  function renderRules(){
+    $('ruleScope').textContent=S.scope==='personal'?'Personal':'Church';
+    $('ruleCur').textContent=SYM[S.cur]||'R';
+    $('ruleIncome').value=S.ruleIncome>0?zar2disp(S.ruleIncome).toFixed(2):'';
+    $('ruleIncLbl').textContent=S.scope==='personal'?'Your monthly income':'Church monthly income';
+
+    document.querySelectorAll('#scopeTabs .rtab').forEach(b=>{
+      b.classList.toggle('on',b.dataset.scope===S.scope);
+    });
+
+    renderRulesList();
+  }
+
+  function renderRulesList(){
+    const list=$('rulesList');
+    const rules=RULES[S.scope]||[];
+    const income=S.ruleIncome; // stored in ZAR
+
+    list.innerHTML=rules.map(r=>{
+      const badge = r.type==='established'?'established':(r.type==='church'?'church':'variation');
+      const badgeLabel = r.type==='established'?'Established':(r.type==='church'?'Church':'Variation');
+      const pctChips=Object.entries(r.alloc).map(([k,v])=>
+        `<span class="pct-chip"><span class="p">${v}%</span> ${esc(k)}</span>`
+      ).join('');
+      const calcRows=Object.entries(r.alloc).map(([k,v])=>{
+        const amt=income*(v/100);
+        return `<div class="calc-row"><span class="lbl">${esc(k)}</span><span class="val">${fmt(amt)}</span></div>`;
+      }).join('');
+
+      return `<div class="rule-card" data-rule="${r.id}">
+        <div class="rh">
+          <h3>${r.icon} ${esc(r.name)}</h3>
+          <span class="badge ${badge}">${badgeLabel}</span>
+        </div>
+        <div class="desc">${esc(r.desc)}</div>
+        <div class="pct-grid">${pctChips}</div>
+        <div class="pros">
+          <b>✓ Advantages:</b> ${esc(r.pros)}<br>
+          <b>🎯 Best for:</b> ${esc(r.use)}
+        </div>
+        ${income>0?calcRows:''}
+      </div>`;
+    }).join('');
+  }
+
+  // ===== Compare Methods =====
+  function renderComparison(){
+    const wrap=$('cmpWrap');
+    const rules=RULES[S.scope]||[];
+    const income=S.ruleIncome;
+    if(income<=0){
+      wrap.innerHTML='<div style="text-align:center;padding:20px;color:var(--text2);font-size:.8rem">Enter an income above to compare methods.</div>';
+      return;
+    }
+
+    // Collect all unique categories across rules
+    const allCats=new Set();
+    rules.forEach(r=>Object.keys(r.alloc).forEach(k=>allCats.add(k)));
+    const cats=[...allCats];
+
+    // Build table
+    let html='<table class="compare-table"><thead><tr><th>Category</th>';
+    rules.forEach(r=>{
+      html+=`<th>${r.icon} ${esc(r.name.split(' ').slice(0,2).join(' '))}</th>`;
+    });
+    html+='</tr></thead><tbody>';
+
+    cats.forEach(cat=>{
+      html+=`<tr><td><b>${esc(cat)}</b></td>`;
+      rules.forEach(r=>{
+        const pct=r.alloc[cat]||0;
+        const amt=income*(pct/100);
+        html+=pct>0
+          ?`<td class="num">${pct}%<br><span class="hl">${fmt(amt)}</span></td>`
+          :`<td class="num" style="color:var(--text2)">—</td>`;
+      });
+      html+='</tr>';
+    });
+
+    // Totals
+    html+='<tr style="background:var(--bg)"><td><b>TOTAL</b></td>';
+    rules.forEach(r=>{
+      const total=Object.values(r.alloc).reduce((a,b)=>a+b,0);
+      html+=`<td class="num"><b class="${total===100?'hl':''}">${total}%</b></td>`;
+    });
+    html+='</tr>';
+
+    html+='</tbody></table>';
+    wrap.innerHTML=html;
   }
 
   // ===== Events =====
@@ -654,6 +1410,7 @@
       S.cur=e.target.value;
       save();
       renderAll();
+      if($('v-rules').classList.contains('on'))renderRules();
     });
 
     // Add buttons
@@ -666,8 +1423,23 @@
     $('mCancel').addEventListener('click',closeModal);
     $('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal()});
 
-    // Form
-    $('form').addEventListener('submit',submitForm);
+    // Modal save
+    $('mSave').addEventListener('click',saveAllocations);
+
+    // Amount input in modal updates summary
+    $('fAmt').addEventListener('input',()=>{
+      // If template is active, recompute allocations
+      if(activeTemplate){
+        const amt=parseFloat($('fAmt').value)||0;
+        modalAllocations={};
+        for(const [k,v] of Object.entries(activeTemplate)){
+          modalAllocations[k]=disp2zar(amt*(v/100));
+        }
+        renderModalAllocations(currentType);
+      }else{
+        updateModalSummary(currentType);
+      }
+    });
 
     // Delete (delegation)
     document.addEventListener('click',e=>{
@@ -680,13 +1452,54 @@
       if(e.key==='Escape'&&$('modal').classList.contains('on'))closeModal();
     });
 
-    // Keyboard: Ctrl/Cmd+K to add
-    document.addEventListener('keydown',e=>{
-      if((e.ctrlKey||e.metaKey)&&e.key==='k'){
-        e.preventDefault();
-        openModal('personal');
+    // ===== RULES EVENTS =====
+    // Scope tabs
+    document.querySelectorAll('#scopeTabs .rtab').forEach(b=>{
+      b.addEventListener('click',()=>{
+        S.scope=b.dataset.scope;
+        save();
+        renderRules();
+        $('cmpPanel').style.display='none';
+        $('cmpToggle').textContent='⚖️ Compare Methods';
+      });
+    });
+
+    // Income input
+    $('ruleIncome').addEventListener('input',e=>{
+      const val=parseFloat(e.target.value)||0;
+      S.ruleIncome=disp2zar(val);
+      save();
+      renderRulesList();
+      if($('cmpPanel').style.display!=='none')renderComparison();
+    });
+
+    // Compare toggle
+    $('cmpToggle').addEventListener('click',()=>{
+      const panel=$('cmpPanel');
+      const btn=$('cmpToggle');
+      if(panel.style.display==='none'){
+        panel.style.display='block';
+        btn.textContent='📋 Hide Comparison';
+        btn.style.background='var(--accent)';
+        btn.style.color='#fff';
+        btn.style.borderColor='var(--accent)';
+        renderComparison();
+      }else{
+        panel.style.display='none';
+        btn.textContent='⚖️ Compare Methods';
+        btn.style.background='';
+        btn.style.color='';
+        btn.style.borderColor='';
       }
     });
+
+    // Edit categories (opens a simple editor for the custom rule)
+    $('editCatsBtn').addEventListener('click',()=>{
+      alert('To edit categories: use the "Custom Allocation" rule and tap "Allocate" on the Personal or Church view. You can add, remove, and adjust any category there.');
+    });
+
+    // Date pill
+    datePill();
   }
 
   // ===== Date pill =====
@@ -701,15 +1514,17 @@
     load();
     applyTheme(S.theme);
     $('curSel').value=S.cur;
-    datePill();
     renderAll();
     bind();
+
+    // Update currency symbols on rules view when shown
+    if($('v-rules').classList.contains('on'))renderRules();
 
     // Register a minimal inline service worker for offline caching
     if('serviceWorker' in navigator){
       window.addEventListener('load',()=>{
         const swCode=`
-          const C='sbp-v1';
+          const C='sbp-v4';
           self.addEventListener('install',e=>{self.skipWaiting()});
           self.addEventListener('activate',e=>{e.waitUntil(self.clients.claim())});
           self.addEventListener('fetch',e=>{
